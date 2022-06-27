@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+        <link rel="stylesheet" href="style.css">
+        <title>PL Weight Helper</title>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <a id="nav-to-configure" href="#" onclick="navigate('configure')">Configure</a>
+                    <a id="nav-to-squat" href="#" onclick="navigate('squat')">Squat</a>
+                    <a id="nav-to-bench" href="#" onclick="navigate('bench')">Bench</a>
+                    <a id="nav-to-dead" href="#" onclick="navigate('dead')">Dead</a>
+                </ul>
+            </nav>
+            <h1>PL Weight Helper</h1>
+        </header>
+        <main id="main-content">
+
+        </main>
+        <template id="configure-form">
+            <form id="configuration">
+                <h2>Configuration</h2>
+                <label for="felt-light-increase">
+                    Felt Light % Increase
+                    <input id="felt-light-increase" name="felt-light-increase" type="number" min="1" max="100" />
+                </label>
+                <label for="felt-normal-increase">
+                    Felt Normal % Increase
+                    <input id="felt-normal-increase" name="felt-normal-increase" type="number" min="1" max="100" />
+                </label>
+                <label for="felt-heavy-increase">
+                    Felt Heavy % Increase
+                    <input id="felt-heavy-increase" name="felt-heavy-increase" type="number" min="1" max="100" />
+                </label>
+                <label for="increase-increment">
+                    Increase Increment
+                    <input id="increase-increment" name="increase-increment" type="number" min="1" step="0.25" />
+                </label>
+                <label for="last-config-save">
+                    Last Config Save
+                    <input type="text" readonly id="last-config-save" name="last-config-save" />
+                </label>
+                <div>
+                    <button type="button" id="save-configuration" onclick="save_config()">Save</button>
+                    <button type="button" id="reset-configuration" onclick="go_to_configure()">Reset</button>
+                </div>
+            </form>
+        </template>
+        <template id="lift-page">
+            <div id="lift">
+                <h2 id="lift-name"></h2>
+                <form id="first-lift">
+                    <label for="first-lift-value">
+                        1st Lift
+                        <input id="first-lift-value" name="first-lift-value" type="number" min="0" onchange="update_lifts()" />
+                    </label>
+                    <fieldset id="first-felt">
+                        <legend>How did it feel?</legend>
+                        <label for="first-felt-heavy">
+                            <input type="radio" name="first-felt" id="first-felt-heavy" value="heavy" onchange="update_lifts()" />
+                            Heavy
+                        </label>
+                        <label for="first-felt-normal">
+                            <input type="radio" name="first-felt" id="first-felt-normal" value="normal" class="lift-was-normal" onchange="update_lifts()" />
+                            Normal
+                        </label>
+                        <label for="first-felt-light">
+                            <input type="radio" name="first-felt" id="first-felt-light" value="light" onchange="update_lifts()" />
+                            Light
+                        </label>
+                    </fieldset>
+                </form>
+                <form id="second-lift">
+                    <label for="second-lift-value">
+                        2nd Lift
+                        <input id="second-lift-value" name="second-lift-value" type="number" min="0" readonly />
+                    </label>
+                    <fieldset id="second-felt">
+                        <legend>How did it feel?</legend>
+                        <label for="second-felt-heavy">
+                            <input type="radio" name="second-felt" id="second-felt-heavy" value="heavy" onchange="update_lifts()" />
+                            Heavy
+                        </label>
+                        <label for="second-felt-normal">
+                            <input type="radio" name="second-felt" id="second-felt-normal" value="normal" onchange="update_lifts()" />
+                            Normal
+                        </label>
+                        <label for="second-felt-light">
+                            <input type="radio" name="second-felt" id="second-felt-light" value="light" onchange="update_lifts()" />
+                            Light
+                        </label>
+                    </fieldset>
+                </form>
+                <form id="third-lift">
+                    <label for="third-lift-value">
+                        3rd Lift
+                        <input id="third-lift-value" name="third-lift-value" type="number" min="0" readonly />
+                    </label>
+                </form>
+            </div>
+        </template>
+        <script type="text/javascript" src="index.js"></script>
+    </body>
+</html>
