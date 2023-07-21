@@ -136,6 +136,12 @@ function go_to_lift(which) {
     set_state(state);
 }
 
+function set_lb_value(page_element, selector, kg_value) {
+    let span = page_element.querySelector(selector);
+    kg_value = kg_value || 0;
+    span.innerText = (kg_value * 2.2).toFixed(2) + "lbs";
+}
+
 function update_lift_page(page_element, which, state) {
     let sub_state = state[which];
     page_element.querySelector("#lift-name").innerText = which.substr(0,1).toUpperCase() + which.substr(1);
@@ -144,9 +150,12 @@ function update_lift_page(page_element, which, state) {
     let lifts = calculate_lifts(state.config, sub_state);
     let first_lift_input = page_element.querySelector("#first-lift-value")
     first_lift_input.value = lifts.first;
+    set_lb_value(page_element, "#first-lbs", lifts.first);
     first_lift_input.setAttribute("step", state.config.increase_increment || 2.5);
     page_element.querySelector("#second-lift-value").value = lifts.second;
+    set_lb_value(page_element, "#second-lbs", lifts.second);
     page_element.querySelector("#third-lift-value").value = lifts.third;
+    set_lb_value(page_element, "#third-lbs", lifts.third);
 }
 
 function calculate_lifts(config, sub_state) {
