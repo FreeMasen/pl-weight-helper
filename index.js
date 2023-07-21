@@ -3,6 +3,7 @@ let config_nav = document.getElementById("nav-to-configure");
 let squat_nav = document.getElementById("nav-to-squat");
 let bench_nav = document.getElementById("nav-to-bench");
 let dead_nav = document.getElementById("nav-to-dead");
+let calc_nav = document.getElementById("nav-to-calc");
 let state_key = "PL-Weight-Helper-State"
 function get_state() {
     let state = localStorage.getItem(state_key);
@@ -33,13 +34,16 @@ function navigate(where) {
     update_nav(where);
     switch (where) {
         case "configure": {
-            return go_to_configure()
+            return go_to_configure();
+        }
+        case "lb-to-kg": {
+            return go_to_calc();
         }
         case "squat":
         case "bench":
         case "dead":
         {
-            return go_to_lift(where)
+            return go_to_lift(where);
         }
     }
 }
@@ -51,7 +55,8 @@ function update_nav(which) {
         config_nav,
         squat_nav,
         bench_nav,
-        dead_nav
+        dead_nav,
+        calc_nav,
     ];
     switch (which) {
         case "configure": {
@@ -69,6 +74,9 @@ function update_nav(which) {
         case "dead": {
             add = dead_nav;
             break;
+        }
+        case "lb-to-kg": {
+            add = calc_nav;
         }
         default: console.log("unknown nav", which);
     }
@@ -197,6 +205,26 @@ function increase_and_round(value, percent, nearest_increment) {
         rounder = -mod
     }
     return next + rounder
+}
+
+function go_to_calc() {
+    clear_main();
+    let template = document.getElementById("calc-page");
+    let clone = template.content.cloneNode(true).firstElementChild;
+    content.appendChild(clone);
+    update_calc(clone);
+}
+
+function update_calc(element) {
+    element = element || content.querySelector("#calc-form");
+    if (!element) {
+        return console.error("no calc-form found");
+    }
+    let state = get_state();
+    let input = element.querySelector("#calc-input");
+    let lbs = +(input.value || "0") || 0; 
+    let output = element.querySelector("#calc-output");
+    output.value = increase_and_round(lbs / 2.2, 0, state.config.increase_increment)
 }
 
 

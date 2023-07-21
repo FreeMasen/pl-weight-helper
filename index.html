@@ -13,6 +13,7 @@
                     <a id="nav-to-squat" href="#" onclick="navigate('squat')">Squat</a>
                     <a id="nav-to-bench" href="#" onclick="navigate('bench')">Bench</a>
                     <a id="nav-to-dead" href="#" onclick="navigate('dead')">Dead</a>
+                    <a id="nav-to-calc" href="#" onclick="navigate('lb-to-kg')">Lb to Kg</a>
                 </ul>
             </nav>
             <h1>PL Weight Helper</h1>
@@ -101,6 +102,18 @@
                     </label>
                 </form>
             </div>
+        </template>
+        <template id="calc-page">
+            <form id="calc-form">
+                <label for="calc-input">
+                    Pounds
+                    <input id="calc-input" name="calc-input" type="number" min="0" onchange="update_calc()" />
+                </label>
+                <label for="calc-output">
+                    Kilograms
+                    <input id="calc-output" name="calc-output" type="number" readonly />
+                </label>
+            </form>
         </template>
         <script type="text/javascript" src="index.js"></script>
     </body>
